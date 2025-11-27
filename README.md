@@ -1,8 +1,10 @@
-<img width="729" height="514" alt="image" src="https://github.com/user-attachments/assets/92b55afc-328e-4266-94b5-1913ceb103f7" />
+<img width="1384" height="899" alt="image" src="https://github.com/user-attachments/assets/0d093631-e0b0-4d80-9398-309fc3f9e5d2" />
 
 # FandomK AI Recommendation API
 
 K-POP 아이돌 추천 시스템 - Sentence Transformers 기반 의미 유사도 추천
+
+https://fandom-k-blue.vercel.app/
 
 ## 📌 프로젝트 소개
 
@@ -42,6 +44,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. 서버 실행
+- 현재는 허깅페이스에 도커화하여 배포 완료되어서 아래처럼 실행하지 않아도 추천 기능이 작동합니다.
 
 ```bash
 python -m uvicorn main:app --reload
