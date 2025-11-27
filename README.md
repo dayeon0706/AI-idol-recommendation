@@ -1,153 +1,70 @@
+---
+title: FandomK AI Recommendation
+emoji: 🎤
+colorFrom: pink
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 # FandomK AI Recommendation API
 
-K-POP 아이돌 추천 시스템 - Sentence Transformers 기반 의미 유사도 추천
+K-POP 아이돌 추천 AI API입니다. Sentence Transformers를 사용하여 사용자가 선택한 아이돌과 유사한 아이돌을 추천합니다.
 
-## 📌 프로젝트 소개
+## 기능
 
-사용자가 선택한 아이돌과 유사한 다른 아이돌을 추천해주는 AI 시스템입니다.
+- 선택한 아이돌 기반 유사 아이돌 추천
+- 멀티링구얼 문장 임베딩 (한국어, 영어 지원)
+- 코사인 유사도 기반 추천 알고리즘
 
-- **Sentence Transformers**를 사용한 텍스트 임베딩
-- **코사인 유사도** 기반 추천
-- **FastAPI**로 구현한 RESTful API
+## API 엔드포인트
 
-## 🛠️ 기술 스택
+### POST /api/recommend
 
-- **Python 3.13**
-- **FastAPI** - 웹 API 프레임워크
-- **Sentence Transformers** - 한국어 지원 임베딩 모델
-- **scikit-learn** - 코사인 유사도 계산
-- **NumPy** - 벡터 연산
+선택한 아이돌과 유사한 아이돌을 추천합니다.
 
-## 📦 설치 방법
-
-### 1. 가상환경 생성 및 활성화
-
-```bash
-# Windows
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-
-# Mac/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 2. 패키지 설치
-
-```bash
-pip install --upgrade pip setuptools wheel
-pip install -r requirements.txt
-```
-
-### 3. 서버 실행
-
-```bash
-python -m uvicorn main:app --reload
-```
-
-서버가 실행되면 다음 주소로 접속:
-
-- **API 서버**: http://127.0.0.1:8000
-- **API 문서 (Swagger)**: http://127.0.0.1:8000/docs
-
-## 🚀 API 사용법
-
-### POST `/api/recommend`
-
-선택한 아이돌과 유사한 아이돌 추천
-
-**요청 예시:**
+**Request Body:**
 
 ```json
 {
-  "selected_idol_ids": [7995, 7987],
+  "selected_idol_ids": [7979, 7995],
   "limit": 8
 }
 ```
 
-**응답 예시:**
+**Response:**
 
 ```json
 {
-  "recommended_ids": [7975, 7988, 7989, 7979],
-  "scores": [0.931, 0.916, 0.915, 0.902]
+  "recommended_ids": [7986, 8001, ...],
+  "scores": [0.95, 0.92, ...]
 }
 ```
 
-## 🧠 추천 시스템 작동 원리
+## 로컬 실행
 
-1. **텍스트 임베딩 생성**
+```bash
+# 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-   - 아이돌 정보 (이름, 성별, 그룹, 장르, 소속사)를 자연어 문장으로 변환
-   - Sentence Transformer 모델로 벡터화
+# 패키지 설치
+pip install -r requirements.txt
 
-2. **유사도 계산**
-
-   - 선택한 아이돌들의 임베딩 평균 계산
-   - 모든 아이돌과의 코사인 유사도 측정
-
-3. **추천 결과 반환**
-   - 유사도가 높은 순서대로 정렬
-   - 이미 선택된 아이돌 제외
-
-## 📂 프로젝트 구조
-
-```
-recommendation-api/
-├── main.py                 # FastAPI 앱 진입점
-├── requirements.txt        # Python 패키지 목록
-├── models/
-│   ├── __init__.py
-│   ├── recommender.py      # 추천 엔진 핵심 로직
-│   └── idol_metadata.py    # 그룹별 메타데이터
-└── README.md
+# 서버 실행
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## 📝 주요 파일 설명
+## Docker 실행
 
-### `main.py`
-
-- FastAPI 애플리케이션 정의
-- CORS 설정
-- API 엔드포인트 구현
-
-### `models/recommender.py`
-
-- Sentence Transformer 모델 로드
-- 아이돌 데이터 API 호출
-- 임베딩 생성 및 유사도 계산
-
-### `models/idol_metadata.py`
-
-- 그룹별 소속사, 장르 정보
-- 자연어 설명 템플릿
-
-## 🔧 커스터마이징
-
-### 그룹 메타데이터 추가
-
-`models/idol_metadata.py`에서 그룹 정보를 추가할 수 있습니다:
-
-```python
-GROUP_METADATA = {
-    "그룹명": {
-        "agency": "소속사",
-        "genres": ["장르1", "장르2"],
-        "description": "자연어 설명"
-    }
-}
+```bash
+docker build -t fandomk-ai .
+docker run -p 7860:7860 fandomk-ai
 ```
 
-## 📌 참고사항
+## 기술 스택
 
-- **첫 실행 시**: Sentence Transformer 모델 다운로드 (~500MB, 1-2분 소요)
-- **재실행 시**: 로컬 캐시에서 로드 (빠름)
-- **추천 정확도**: 그룹 메타데이터가 있는 경우 더 정확
-
-## 🤝 기여
-
-이 프로젝트는 FandomK 팀 프로젝트의 일부로 개발되었습니다.
-
-## 📄 라이선스
-
-MIT License
+- **FastAPI**: Python 웹 프레임워크
+- **Sentence Transformers**: 문장 임베딩 모델
+- **scikit-learn**: 코사인 유사도 계산
+- **PyTorch**: 딥러닝 백엔드

@@ -10,7 +10,7 @@ app = FastAPI(title="FandomK AI Recommendation API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 개발 중에는 모든 origin 허용
-    allow_credentials=False,  # credentials 비활성화 (와일드카드 사용 시 필수)
+    allow_credentials=False,  # credentials 비활성화, 와일드카드 사용 시 필수
     allow_methods=["*"],
     allow_headers=["*"],
 )
