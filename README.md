@@ -55,7 +55,6 @@ K-POP 아이돌 추천 AI API입니다. Sentence Transformers를 사용하여 �
 현재 **Hugging Face Space**에 Docker로 배포되어 있습니다.
 
 - **Space URL**: https://huggingface.co/spaces/Dayeoni/ai-recommendation
-- **API Endpoint**: https://dayeoni-ai-recommendation.hf.space/api/recommend
 
 ## ⚠️ 참고사항
 
