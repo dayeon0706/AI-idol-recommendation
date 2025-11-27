@@ -1,3 +1,5 @@
+<img width="729" height="514" alt="image" src="https://github.com/user-attachments/assets/92b55afc-328e-4266-94b5-1913ceb103f7" />
+
 # FandomK AI Recommendation API
 
 K-POP 아이돌 추천 시스템 - Sentence Transformers 기반 의미 유사도 추천
@@ -144,10 +146,3 @@ GROUP_METADATA = {
 - **재실행 시**: 로컬 캐시에서 로드 (빠름)
 - **추천 정확도**: 그룹 메타데이터가 있는 경우 더 정확
 
-## 🤝 기여
-
-이 프로젝트는 FandomK 팀 프로젝트의 일부로 개발되었습니다.
-
-## 📄 라이선스
-
-MIT License
